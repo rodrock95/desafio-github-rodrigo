@@ -1,0 +1,12 @@
+header{
+    padding: 15px 20px;
+    background-color: var(--color-bg-secondary);
+    height: 62px;
+    display: flex;
+}
+
+header h1{
+    color: var(--color-font-primary);
+    font-size: 24px;
+    font-weight: 500;
+}
