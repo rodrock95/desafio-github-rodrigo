@@ -6,7 +6,6 @@ export default function HomeGH(){
     return (
         <main>
           <section>
-            <div className="container">
               <div className="mt30 mb30 text-home">
                 <h1>Desafio Github API</h1>
                 <p>DevSuperior - Escola de programação</p>
@@ -16,7 +15,6 @@ export default function HomeGH(){
                     </Link>   
                 </div>
               </div>
-            </div>
           </section>
         </main>
       );

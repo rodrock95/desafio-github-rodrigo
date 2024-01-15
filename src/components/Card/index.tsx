@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { ProfileDTO } from "../../models/profile";
 import * as profileService from "../../services/profile-service";
 import ProfileDetailsCard from "../ProfileDetailsCard";
 import "./styles.css"
+import Button from "../Button";
 
 type FormData = {
   username: string;
@@ -11,7 +11,7 @@ type FormData = {
 
 export default function Card() {
 
-  const params = useParams();
+  const [error, setError] = useState<boolean>(false);
 
   const [formData, setFormData] = useState<FormData>({
     username: ''
@@ -20,12 +20,9 @@ export default function Card() {
 
   const [profile, setProfile] = useState<ProfileDTO>();
 
-    useEffect(() => {
-        profileService.findByProfile(String(params.name)).then(response =>{
-            console.log(response.data.content);
-            setProfile(response.data.content)
-        })
-    })
+  useEffect(() => {
+        
+  }, [profile])
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
@@ -36,9 +33,18 @@ export default function Card() {
   function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     profileService.findByProfile(formData.username)
+    .then(response =>{
+      console.log(response.data);
+      setProfile(response.data)
+      setError(false)
+    }).catch(() =>{
+      setProfile(undefined)
+      setError(true)
+    })
   }
 
   return (
+    <>
     <div className="card">
       <h2>Encontre um perfil Github</h2>
       <form onSubmit={handleFormSubmit}>
@@ -50,13 +56,20 @@ export default function Card() {
           onChange={handleInputChange}
         />
         <div className="mb30 mt30 dflex">
-          <button type="submit">Buscar</button>
+          <Button text="Encontrar"/>
         </div>
       </form>
+      </div>
       <section>
+          {error && 
+          <div className="mt30 text-nothing">
+            <p>Erro ao buscar usuário</p>
+          </div>
+        }
         {profile && <ProfileDetailsCard profile={profile} />}
       </section>
-    </div>
+    </>
+    
   );
 }
 

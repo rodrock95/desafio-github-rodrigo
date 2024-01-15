@@ -4,7 +4,9 @@
     color: var(--color-font-secondary);
     padding: 20px;
     min-height: 270px;
+    display: block;
     align-items: center;
+    width: 960px;
 }
 
 .card h2{
@@ -23,3 +25,8 @@
 .card input:focus {
     outline: none;
   }
+
+  .text-nothing{
+    font-size: 38px;
+    font-weight: 500;
+}
